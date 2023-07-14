@@ -27,6 +27,20 @@ namespace WebApplication1.Controllers
                           Problem("Entity set 'ApplicationDbContext.Employee'  is null.");
         }
 
+        // GET: Employees/SearchForm
+        public async Task<IActionResult> SearchForm()
+        {
+            return View();
+        }
+
+        // POST: Employees/SearchFormResult
+        public async Task<IActionResult> SearchFormResult(String SearchPhrase)
+        {
+            return _context.Employee != null ?
+                          View("Index", await _context.Employee.Where(j => j.Name.Contains(SearchPhrase)).ToListAsync()) :
+                          Problem("Entity set 'ApplicationDbContext.Employee'  is null.");
+        }
+
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
